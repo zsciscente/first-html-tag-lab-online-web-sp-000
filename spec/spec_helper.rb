@@ -81,8 +81,18 @@ RSpec.configure do |config|
 =end
 end
 
+def expect_with_hints(value)
+  expect(value)
+end
+
 def hint(number, value)
-  eval(YAML.load_file('./.hints')[number])
+  data = YAML.load_file('./.hints')[number]
+  expectation = eval(data["failure"])
+
+  <<-MSG
+    #{expectation}
+    #{data["hint"]}\n
+  MSG
 end
 
 def html_file_contents
@@ -94,3 +104,20 @@ def parsed_html
     config.strict.dtdload.dtdvalid.noblanks
   end
 end
+
+
+
+# expect(h1).to_not be_nil, hint(1, h1)
+# self.to_not(matcher, hint(test_number))
+
+# class RSpec::Expectations::ExpectationTarget
+#   def with_hints_to_not(matcher, test_number)
+#     nope = caller
+#     binding.pry
+#     to_not(matcher, hint(test_number))
+#   end
+
+#   def with_hints_to(matcher, test_number)
+#     binding.pry
+#   end
+# end

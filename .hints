@@ -1,16 +1,14 @@
 ---
-1: |
-  <<-MSG
-    expected: not nil
-    got: #{value.inspect}
+1: 
+  failure: |
+          <<-MSG    
+          expected: h1
+          got: #{value}
+          MSG
 
-    Did you code an <h1>Tag</h1> in index.html?
-  MSG
+
+  hint: |
+        Did you code an <h1>Tag</h1> in index.html?
 
 2: |
-  <<-MSG
-    expected: "Hello, World!"
-    got: #{value.inspect}
-
-    Does your H1 have exactly \"Hello, World!\" inside the opening and closing tag?
-  MSG
+    Does your H1 have exactly "Hello, World!" inside the opening and closing tag?
